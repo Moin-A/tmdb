@@ -6,9 +6,10 @@ class Movies extends Component {
   state = { Movieslist: [] };
 
   componentDidMount = async () => {
-    const response = await http.get(
-      "http://api.themoviedb.org/3/movie/popular?api_key=f4ccbd61ace52edd9db1d3b45ea3c35b&language=en"
-    );
+    const response = await http.request({
+      url:
+        "http://api.themoviedb.org/3/movie/popular?api_key=f4ccbd61ace52edd9db1d3b45ea3c35b&language=en/",
+    });
 
     const normalisedlist = normalize(response.data.results);
     this.setState({ Movieslist: normalisedlist });
