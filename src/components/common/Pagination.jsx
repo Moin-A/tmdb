@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import _ from "lodash";
 
 export default (props) => {
-  const { itemscount, pagesize, onPageChange, currentPage } = props;
-  const pagesCount = itemscount / pagesize;
+  const { itemsCount, pageSize, onPageChange, currentPage } = props;
+  const pagesCount = itemsCount / pageSize;
   const range = _.range(1, pagesCount + 1);
+  debugger;
   return (
     <nav aria-label="Page navigation example">
       <ul class="pagination">

@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import http from "../Service/httpService";
 import normalize from "../Service/Normalize";
 import Pagination from "./common/Pagination";
+import paginate from "./utils/paginate";
 
 class Movies extends Component {
-  state = { Movieslist: [], size: 4, currentPage: null };
+  state = { Movieslist: [], pageSize: 4, currentPage: 1 };
 
   componentDidMount = async () => {
     const response = await http.request({
@@ -19,8 +20,9 @@ class Movies extends Component {
     this.setState({ currentPage: item });
   };
   render() {
-    const length = this.state.Movieslist.length;
-    const { size, currentPage } = this.state;
+    const { Movieslist: allMovies, pageSize, currentPage } = this.state;
+    const Movieslist = paginate(allMovies, pageSize, currentPage);
+    debugger;
     return (
       <React.Fragment>
         <table className="table">
@@ -33,7 +35,7 @@ class Movies extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.Movieslist.map((item, index) => (
+            {Movieslist.map((item, index) => (
               <tr>
                 <td key={`${index}tittle`}>{item.original_title}</td>
                 <td key={`${index}genre`}>
@@ -46,8 +48,8 @@ class Movies extends Component {
           </tbody>
         </table>
         <Pagination
-          itemscount={this.state.Movieslist.length}
-          pagesize={this.state.size}
+          itemsCount={this.state.Movieslist.length}
+          pageSize={this.state.pageSize}
           currentPage={this.state.currentPage}
           onPageChange={this.handlechange}
         />
